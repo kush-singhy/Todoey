@@ -18,11 +18,14 @@ class TodoListViewController: UITableViewController {
         }
     }
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    
     @IBOutlet weak var searchBar: UISearchBar!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         searchBar.delegate = self
+        let paths = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.userDomainMask, true)
+        print(paths[0])
     }
     
     // MARK: - TableView Datasource Methods
@@ -62,6 +65,7 @@ class TodoListViewController: UITableViewController {
             newItem.title = textField.text!
             newItem.done = false
             newItem.parentCategory = self.selectedCategory
+            newItem.dateCreated = Date(timeIntervalSince1970: 0)
             self.itemArray.append(newItem)
             self.saveItems()
         }
